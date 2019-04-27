@@ -1,0 +1,6 @@
+-sname fibonacci_server
+
+-setcookie fibonacci_server_cookie
+
++K true
++A30
