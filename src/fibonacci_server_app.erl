@@ -15,7 +15,6 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
-    %fibonacci-server_sup:start_link(),
     Routes = [ {
         '_',
         [
