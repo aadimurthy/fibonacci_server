@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/lib/cowboy" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/lib/cowlib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/lib/jsx" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/lib/ranch" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/rel/fibonacci_server/lib/cowboy-2.0.0-pre.1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/rel/fibonacci_server/lib/cowlib-1.0.0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_build/default/rel/fibonacci_server/lib/ranch-1.0.0" vcs="Git" />
+  </component>
+</project>
