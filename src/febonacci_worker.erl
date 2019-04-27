@@ -82,7 +82,8 @@ handle_call({compute,Input}, _From, State) when is_list(Input) ->
     true ->
       Result = compute_fibonacci(Input),
       lists:foreach(fun(Elem)->
-        ets:insert(feb_result,{Elem, Result}),
+        [FirstR|_]=Result,
+        ets:insert(feb_result,{Elem, FirstR}),
         ets:update_counter(input_count, Elem, {2, 1}, {Input, 0})
                     end,
         Input),
