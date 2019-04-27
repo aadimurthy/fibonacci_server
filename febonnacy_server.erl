@@ -61,6 +61,8 @@ start_link() ->
   {stop, Reason :: term()} | ignore).
 init([]) ->
   ets:new(feb_result, [set,public, named_table]),
+  ets:new(input_count, [set,public, named_table]),
+
   {ok, #state{}}.
 
 %%--------------------------------------------------------------------
@@ -78,9 +80,42 @@ init([]) ->
   {noreply, NewState :: #state{}, timeout() | hibernate} |
   {stop, Reason :: term(), Reply :: term(), NewState :: #state{}} |
   {stop, Reason :: term(), NewState :: #state{}}).
-handle_call(Request, _From, State) ->
-  Result = compute_fibonacci(Request),
+
+handle_call({compute,Input}, _From, State) when is_list(Input) ->
+  case Input=:=lists:sort(Input) of
+    true ->
+      Result = compute_fibonacci(Input),
+      lists:foreach(fun(Elem)->
+        ets:insert(feb_result,{Elem, Result}),
+        ets:update_counter(input_count, Elem, {2, 1}, {Input, 0})
+                    end,
+        Input),
+      {reply, Result, State};
+    _ ->
+      {reply, "Input list should be sorted one", State}
+  end;
+
+handle_call({compute,Input}, _From, State) ->
+  Result = compute_fibonacci(Input),
+  ets:update_counter(input_count, Input, {2, 1}, {Input, 0}),
+  ets:insert(feb_result,{Input, Result}),
+  {reply, Result, State};
+
+handle_call(history, _From, State) ->
+  Count_List = ets:match_object(input_count, {'$0', '$1'}),
+  History=
+  lists:map(fun({Input,_Count})->
+    hd(ets:match_object(feb_result, {Input, '$1'}))
+            end,
+    Count_List),
+
+  {reply, History, State};
+
+handle_call(count, _From, State) ->
+  Result = ets:match_object(input_count, {'$0', '$1'}),
   {reply, Result, State}.
+
+
 
 %%--------------------------------------------------------------------
 %% @private
@@ -147,6 +182,9 @@ code_change(_OldVsn, State, _Extra) ->
 
 compute_fibonacci(0) -> 0;
 compute_fibonacci(1) -> 1;
+compute_fibonacci(N) when is_list(N)->
+  Res=[compute_fibonacci(X)||X<-lists:reverse(N)], % We always process higher element first to get more results to be cached
+  lists:reverse(Res);
 compute_fibonacci(N) ->
   Num2 = case ets:lookup(feb_result,N-2) of
          [] ->
