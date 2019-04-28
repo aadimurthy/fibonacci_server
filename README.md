@@ -31,7 +31,7 @@ Known Issues/ Needed Improvements :
 
 ## To Start Server: 
 ```
-rebar3 run
+./rebar3 run
 ```
 
 ## To Request Febonacci numbber:
