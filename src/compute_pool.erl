@@ -10,14 +10,24 @@
 -author("immidisa").
 
 %% API
--export([ start/0, compute/1]).
+-export([ start/0, compute/1, history_count/0, history/0]).
 
 
 start() ->
   compute_pool_sup:start_link(?MODULE).
 
-compute(Body) ->
-  wpool:call(?MODULE, {compute, Body}).
+compute(Input) ->
+  wpool:call(?MODULE, {compute, Input}).
+
+history_count() ->
+  wpool:call(?MODULE, count).
+
+history()->
+  wpool:call(?MODULE, history).
+
+
+
+
 
 %%%===================================================================
 %%% private functions
