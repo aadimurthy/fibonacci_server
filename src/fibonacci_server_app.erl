@@ -18,7 +18,9 @@ start(_StartType, _StartArgs) ->
     Routes = [ {
         '_',
         [
-            {"/fibonacci/compute", compute_handler, []}
+            {"/fibonacci/compute", compute_handler, []},
+            {"/fibonacci/history_count", count_handler, []},
+            {"/fibonacci/history", history_handler, []}
         ]
     } ],
     Dispatch = cowboy_router:compile(Routes),
