@@ -1,5 +1,32 @@
 # Fibonacci-Server
-Erlang Based Cached Fibonacci Server 
+This Fibonacci Server is written in Erlang and used ETS storage to get the optimized way of performing the computations by storing the previous computations results.
+
+Components used:
+Cowboy: Cowboy aims to provide a complete HTTP stack in a small code base. It is optimised for low latency and low memory usage, in part because it uses binary strings.
+
+worker_pool(https://github.com/inaka/worker_pool): The goal of worker pool is pretty straightforward: To provide a transparent way to manage a pool of workers and do the best effort in balancing the load among them distributing the tasks requested to the pool
+
+Below are the things I have considered choosing worker pool for implementing Fibonacci Server
+
+1) Worker_Timeout that controls how many milliseconds is the client willing to spend in that, regardless of the global Timeout for the call). This ensures that, if a task takes too long, that doesn't block other tasks since, as soon as other worker is free it can pick up the next task in the list --> This is really important for service which do mathematical computation like Fibonacci and also it has risk of getting very larger inputs from users.
+
+2) The number of workers in the pool and work pool strategy -> We can always limit or increase the resources  and strategy to adjust to serve the computation requests. 
+
+Jsx: Erlang Json Parser
+
+
+Known Issues/ Needed Improvements :
+1) You might see some warnings/errors during cowboy run, this is because you might using OTP that cowboy not fully supported. Mine is OTP 21 and I experienced same :)   
+2) I could use mnesia instead of ets to persist the computational results over the service restarts. 
+3) Put limit on ETS storage or some algorithm to
+3) What if, group of clients request to calculate same large Fibonacci numbers, same time and concurrently (kind DoS attack)?. To prevents this we can use the flag mechanism i.e we can rise the falg for ongoing computation so that we can prevent another computation and worker allocation for same computation.  
+4) Separate modules for ETS and Fibonacci functions 
+5) Config file to supply config to Cowboy, Worker Pool 
+
+
+
+
+
 
 To Start Server: 
 ```
