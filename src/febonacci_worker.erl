@@ -81,12 +81,11 @@ handle_call({compute,Input}, _From, State) when is_list(Input) ->
   case Input=:=lists:sort(Input) of
     true ->
       Result = compute_fibonacci(Input),
-      lists:foreach(fun(Elem)->
-        [FirstR|_]=Result,
-        ets:insert(feb_result,{Elem, FirstR}),
-        ets:update_counter(input_count, Elem, {2, 1}, {Input, 0})
+      lists:zipwith(fun(IElem,RElem)->
+        ets:insert(feb_result,{IElem, RElem}),
+        ets:update_counter(input_count, IElem, {2, 1}, {IElem, 0})
                     end,
-        Input),
+        Input,Result),
       {reply, Result, State};
     _ ->
       {reply, "Input list should be sorted one", State}
