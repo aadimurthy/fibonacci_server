@@ -29,7 +29,7 @@ content_types_accepted(Req, Opts) ->
   {[{<<"application/json">>, router}], Req, Opts}.
 
 router(Req, Opts) ->
-  History=compute_pool:history(),
+  {ok,History}=compute_pool:history(),
   {ok, Req2} = cowboy_req:reply(200,
     [{<<"content-type">>, <<"application/json">>}],jsx:encode(History),
     Req),

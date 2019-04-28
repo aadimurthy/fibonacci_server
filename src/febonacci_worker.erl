@@ -86,7 +86,7 @@ handle_call({compute,Input}, _From, State) when is_list(Input) ->
         ets:update_counter(input_count, IElem, {2, 1}, {IElem, 0})
                     end,
         Input,Result),
-      {reply, Result, State};
+      {reply, {ok,Result}, State};
     _ ->
       {reply, "Input list should be sorted one", State}
   end;
@@ -95,7 +95,7 @@ handle_call({compute,Input}, _From, State) ->
   Result = compute_fibonacci(Input),
   ets:update_counter(input_count, Input, {2, 1}, {Input, 0}),
   ets:insert(feb_result,{Input, Result}),
-  {reply, Result, State};
+  {reply, {ok,Result}, State};
 
 handle_call(history, _From, State) ->
   Count_List = ets:match_object(input_count, {'$0', '$1'}),
@@ -105,11 +105,11 @@ handle_call(history, _From, State) ->
               end,
       Count_List),
 
-  {reply, History, State};
+  {reply, {ok,History}, State};
 
 handle_call(count, _From, State) ->
   Result = ets:match_object(input_count, {'$0', '$1'}),
-  {reply, Result, State}.
+  {reply, {ok,Result}, State}.
 
 
 

@@ -35,7 +35,7 @@ router(Req, Opts) ->
 send_to_compute_pool(_,Req,Opts) ->
   {ok,Body,_} = cowboy_req:body(Req),
   [{<<"input">>,Number}] =jsx:decode(Body),
-  Fibonacci_Number =compute_pool:compute(Number),
+  {ok, Fibonacci_Number} =compute_pool:compute(Number),
   Res = cowboy_req:set_resp_body(jsx:encode(Fibonacci_Number), Req),
   {true, Res, Opts}.
 
