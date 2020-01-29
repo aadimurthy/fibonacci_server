@@ -16,10 +16,18 @@
   {git,"https://github.com/erlang-lager/lager.git",
        {ref,"f26a8ea0f4c2ed6506a54e0b9890edd8148b9500"}},
   0},
+ {<<"lager_syslog">>,
+  {git,"https://github.com/basho/lager_syslog.git",
+       {ref,"126dd0284fcac9b01613189a82facf8d803411a2"}},
+  0},
  {<<"ranch">>,
   {git,"git://github.com/ninenines/ranch.git",
        {ref,"adf1822defc2b7cfdc7aca112adabfa1d614043c"}},
   1},
+ {<<"syslog">>,
+  {git,"git://github.com/Vagabond/erlang-syslog",
+       {ref,"4a6c6f2c996483e86c1320e9553f91d337bcb6aa"}},
+  0},
  {<<"worker_pool">>,{pkg,<<"worker_pool">>,<<"4.0.0">>},0}]}.
 [
 {pkg_hash,[
