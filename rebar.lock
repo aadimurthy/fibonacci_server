@@ -7,9 +7,14 @@
   {git,"git://github.com/ninenines/cowlib.git",
        {ref,"d544a494af4dbc810fc9c15eaf5cc050cced1501"}},
   1},
+ {<<"goldrush">>,{pkg,<<"goldrush">>,<<"0.1.9">>},1},
  {<<"jsx">>,
   {git,"https://github.com/talentdeficit/jsx.git",
        {ref,"3074d4865b3385a050badf7828ad31490d860df5"}},
+  0},
+ {<<"lager">>,
+  {git,"https://github.com/erlang-lager/lager.git",
+       {ref,"f26a8ea0f4c2ed6506a54e0b9890edd8148b9500"}},
   0},
  {<<"ranch">>,
   {git,"git://github.com/ninenines/ranch.git",
@@ -18,5 +23,6 @@
  {<<"worker_pool">>,{pkg,<<"worker_pool">>,<<"4.0.0">>},0}]}.
 [
 {pkg_hash,[
+ {<<"goldrush">>, <<"F06E5D5F1277DA5C413E84D5A2924174182FB108DABB39D5EC548B27424CD106">>},
  {<<"worker_pool">>, <<"CD94D94D3B1A2442E54DB001B0B3BA0BD1F9D8098F4253F57228C021524BB55B">>}]}
 ].
