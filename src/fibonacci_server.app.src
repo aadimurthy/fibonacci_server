@@ -10,7 +10,6 @@
     lager_syslog,
     syslog,
     cowboy,
-    worker_pool,
     jsx
    ]},
   {env,[]},
